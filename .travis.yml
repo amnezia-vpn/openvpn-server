@@ -1,0 +1,15 @@
+dist: bionic
+
+branches:
+  only:
+  - master
+  
+jobs:
+  include:
+    - stage: build docker image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t openvpn .
+      - docker images
+      - docker tag openvpn $DOCKER_USERNAME/openvpn
+      - docker push $DOCKER_USERNAME/openvpn
