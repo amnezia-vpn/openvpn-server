@@ -16,6 +16,8 @@ COPY config ./config
 #Install required packages
 RUN apk add --no-cache openvpn easy-rsa bash netcat-openbsd dumb-init 
 
+RUN cp ${APP_INSTALL_PATH}/config/server.conf /etc/openvpn/server.conf
+
 EXPOSE 1194/udp
 
 ENTRYPOINT [ "dumb-init", "./start.sh" ]
